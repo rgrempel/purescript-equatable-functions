@@ -39,7 +39,7 @@
 -- |     add2func = eqFunc add2
 -- |
 -- | Now, we define `==>` as an infix type operator for `EqFunc`.  So, we can write
--- | `add2Func` like this instead, making it look a little like more like a function
+-- | `add2Func` like this instead, making it look a little more like a function
 -- | type. Isn't that nice?
 -- |
 -- |     nicerAdd2func :: Int ==> Int
@@ -80,7 +80,7 @@
 -- | when given that parameter, return another function. But suppose you provide such
 -- | a function to `eqFunc`. What will happen?
 -- |
--- | Consider an `EqFunc` made from `+` itself, whith is `Int -> Int -> Int`
+-- | Consider an `EqFunc` made from `+` itself, which can be specialized to `Int -> Int -> Int`
 -- |
 -- |     add :: Int ==> (Int -> Int)
 -- |     add = eqFunc (+)
@@ -746,13 +746,23 @@ uniqueTag = uniqueTagImpl Plain
 -- | Applies an `EqFunc` to an argument.
 -- |
 -- | You can also use `~` as an infix operator, with the precedence of
--- } ordinary function application. Or, you can use `=$=`, with a precedence
+-- | ordinary function application. Or, you can use `=$=`, with a precedence
 -- | like `$`.
 runEF :: ∀ a b. (a ==> b) -> (a -> b)
 runEF (EqFunc func) = func.func
 
 
+-- | Function application for an `EqFunc`, with a precedence like `$`.
 infixr 0 runEF as =$=
+
+
+-- | Function application for an `EqFunc`, with the precedence of
+-- | ordinary function application.
+-- |
+-- |     add :: Int ==> Int ==> Int
+-- |     add = eqFunc2 (+)
+-- |
+-- |     add ~ 2 ~ 3 == 5
 infixl 9 runEF as ~
 
 
@@ -761,6 +771,8 @@ infixl 9 runEF as ~
 runFlippedEF :: ∀ a b. a -> (a ==> b) -> b
 runFlippedEF = flip runEF
 
+
+-- | Function application for `EqFunc`, analogous to `#`.
 infixl 1 runFlippedEF as =#=
 
 
