@@ -1,5 +1,5 @@
 [![Latest release](http://img.shields.io/bower/v/purescript-equatable-functions.svg)](https://github.com/rgrempel/purescript-equatable-functions/releases)
-[![Dependency Status](https://www.versioneye.com/user/projects/57007272fcd19a0051853c1d/badge.svg?style=flat)](https://www.versioneye.com/user/projects/57007272fcd19a0051853c1d)
+[![Dependency Status](https://www.versioneye.com/user/projects/57ae1cc5d6720e004522aa92/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57ae1cc5d6720e004522aa92)
 [![Build Status](https://travis-ci.org/rgrempel/purescript-equatable-functions.svg?branch=master)](https://travis-ci.org/rgrempel/purescript-equatable-functions)
 
 # purescript-equatable-functions
