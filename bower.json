@@ -1,0 +1,31 @@
+{
+  "name": "purescript-equatable-functions",
+  "homepage": "https://github.com/rgrempel/purescript-equatable-functions",
+  "authors": [
+    "Ryan Rempel <rgrempel@gmail.com>"
+  ],
+  "description": "Construct equatable functions in Purescript",
+  "license": "MIT",
+  "keywords": [
+    "purescript"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-prelude": "^1.0.0",
+    "purescript-exists-eq": "^1.0.0",
+    "purescript-profunctor": "^1.0.0"
+  },
+  "devDependencies": {
+    "purescript-test-unit": "^9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rgrempel/purescript-equatable-functions.git"
+  }
+}
