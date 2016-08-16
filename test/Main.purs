@@ -167,6 +167,22 @@ tests =
             assert "uncurrying and then currying should work" $
                 curryEF (uncurryEF add) ~ 3 ~ 4 == 7
 
+        test "mapEF" do
+            assert "basically works" $
+                mapEF times2 ~ [1, 2, 3] == [2, 4, 6]
+
+            assert "mapEF preserves equality" $
+                mapEF times2 == mapEF times2 :: Array Int ==> Array Int
+
+            assert "and when it is spelled out" $
+                mapEF (eqFunc2 (+) ~ 2) == mapEF (eqFunc2 (+) ~ 2) :: Array Int ==> Array Int
+
+            assert "and when things aren't equal" $
+                mapEF times2 /= mapEF add5 :: Array Int ==> Array Int
+
+            assert "and when it is spelled out and not equal" $
+                mapEF (eqFunc2 (+) ~ 2) /= mapEF (eqFunc2 (+) ~ 5) :: Array Int ==> Array Int
+
 
 x :: Int
 x = 5

@@ -221,6 +221,7 @@ module Data.Function.Equatable
     , constEF, flipEF
     , curryEF, curryEF3, curryEF4, curryEF5, curryEF6, curryEF7, curryEF8, curryEF9, curryEF10
     , uncurryEF, uncurryEF3, uncurryEF4, uncurryEF5, uncurryEF6, uncurryEF7, uncurryEF8, uncurryEF9, uncurryEF10
+    , mapEF
     ) where
 
 
@@ -315,6 +316,8 @@ instance strongEqFunc :: Strong EqFunc where
             (StrongSecond tag)
             (second func)
 
+
+-- Creating EqFuncs
 
 -- | Given a top-level function, make an equatable function.
 -- |
@@ -468,6 +471,29 @@ flipEF (EqFunc {tag, func}) =
 -- |      (constEF 5) ~ 7 == 5
 constEF :: ∀ a b. (Eq a) => a -> (b ==> a)
 constEF = runEF (eqFunc2 const)
+
+
+-- EqFunc variations on some standard classes
+
+-- | Like `map`, but you provide an `EqFunc`, and you get an `EqFunc` back,
+-- | which has been lifted to operate over the Functor `f`.
+-- |
+-- |     times2 :: Int ==> Int
+-- |     times2 = eqFunc2 (*) ~ 2
+-- |
+-- |     mapEF times2 ~ [1, 2, 3] == [2, 4, 6]
+-- |
+-- |     mapEF times2 == mapEF times2 :: Array Int ==> Array Int
+mapEF :: ∀ f a b. (Functor f) => (a ==> b) -> (f a ==> f b)
+mapEF (EqFunc {func, tag}) =
+    let
+        mapF :: (a -> b) -> f a -> f b
+        mapF = map
+
+    in
+        mkEqFunc
+            (applied (uniqueTag mapF) tag)
+            (mapF func)
 
 
 curried :: Int -> Tag -> Tag
@@ -825,7 +851,3 @@ instance categoryEqFunc :: Category EqFunc where
             { func: id
             , tag: Id
             }
-
-
-mapEF :: ∀ f a b. Functor f => (a ==> b) -> f a -> f b
-mapEF = map <<< runEF
