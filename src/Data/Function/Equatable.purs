@@ -123,6 +123,11 @@
 -- | as well as a `runEF3` to `runEF10`, that follow the same pattern, with
 -- | the specified number of parameters.
 -- |
+-- | **Note that it turns out that partial application currently has problems
+-- | preserving equality if the applied parameter was formed via a `* -> *`
+-- | or higher-kinded type (e.g. `Just 5` as opposed to just `5`). I will work
+-- | on a fix for that.**
+-- |
 -- | I mentioned earlier that partial application provides a workaround for
 -- | the fact that `EqFunc` needs to start with functions defined at the
 -- | top-level. The main reason you want to define functions inline is to
